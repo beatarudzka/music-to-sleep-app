@@ -1,0 +1,30 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container__time-select, 
+.container__player,
+.container__sound-picker {
+height: 80%;
+flex: 1;
+}
+
+.container__time-select{
+  background: lightcoral;
+}
+
+.container__player {
+  background-color: lightslategray;
+}
+.container__sound-picker{
+  background-color: lightgrey;
+}
