@@ -10,13 +10,12 @@ const app = () => {
   let songDuration = 600
   circleButton.style.strokeDasharray = 100
 
-  play.addEventListener('click', () => {
-    playOrPauseMusic
-  })
-  playOrPauseMusic = () => {
+  const playOrPauseMusic = () => {
     song.play()
-
   }
+  play.addEventListener('click',
+    playOrPauseMusic
+  )
 }
 
 app()
