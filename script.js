@@ -10,11 +10,19 @@ const app = () => {
   let songDuration = 600
   circleButton.style.strokeDasharray = 100
 
-  const playOrPauseMusic = () => {
-    song.play()
+  const playOrPauseMusic = (song) => {
+    if (song.paused) {
+      song.play()
+      play.src = './svg/pause.svg'
+      movieBackground.play()
+    } else {
+      song.pause()
+      play.src = './svg/play.svg'
+      movieBackground.pause()
+    }
   }
   play.addEventListener('click',
-    playOrPauseMusic
+    () => { playOrPauseMusic(song) }
   )
 }
 
