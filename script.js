@@ -9,7 +9,7 @@ const app = () => {
 
   let songDuration = 600
   circleButton.style.strokeDasharray = outlineLengthOfPlay
-  // circleButton.style.strokeDashoffset = outlineLengthOfPlay
+  circleButton.style.strokeDashoffset = outlineLengthOfPlay
 
   const playOrPauseMusic = (song) => {
     if (song.paused) {
@@ -35,7 +35,7 @@ const app = () => {
 
     let progressOfMusic = outlineLengthOfPlay - (currentTime / songDuration) * outlineLengthOfPlay
     circleButton.style.strokeDashoffset = progressOfMusic
-    console.log(progressOfMusic)
+    timeDisplay.textContent = `${timeInMinutes}:${timeInSeconds}`
   }
 }
 
