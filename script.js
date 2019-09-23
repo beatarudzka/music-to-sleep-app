@@ -5,10 +5,11 @@ const app = () => {
   const movieBackground = document.querySelector('.container__video video')
   const music = document.querySelectorAll('.container__sound-picker button')
   const timeDisplay = document.querySelector('.time-display')
-  // const outlineLengthOfPlay = circleButton.getTotalLengthOfPlay()
+  const outlineLengthOfPlay = circleButton.getTotalLength()
 
   let songDuration = 600
-  circleButton.style.strokeDasharray = 100
+  circleButton.style.strokeDasharray = outlineLengthOfPlay
+  // circleButton.style.strokeDashoffset = outlineLengthOfPlay
 
   const playOrPauseMusic = (song) => {
     if (song.paused) {
@@ -24,6 +25,18 @@ const app = () => {
   play.addEventListener('click',
     () => { playOrPauseMusic(song) }
   )
+
+
+  song.ontimeupdate = () => {
+    let currentTime = song.currentTime
+    let elapsedTime = songDuration - currentTime
+    let timeInSeconds = Math.floor(elapsedTime % 60)
+    let timeInMinutes = Math.floor(elapsedTime / 60)
+
+    let progressOfMusic = outlineLengthOfPlay - (currentTime / songDuration) * outlineLengthOfPlay
+    circleButton.style.strokeDashoffset = progressOfMusic
+    console.log(progressOfMusic)
+  }
 }
 
 app()
