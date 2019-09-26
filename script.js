@@ -1,15 +1,16 @@
 const app = () => {
   const play = document.querySelector('.container__player--player')
-  const song = document.querySelector('.music')
+  const song = document.querySelector('.song')
   const circleButton = document.querySelector('.moving-outline circle')
-  const movieBackground = document.querySelector('.container__video video')
-  const music = document.querySelectorAll('.container__sound-picker button')
+  let movieBackground = document.querySelector('.container__video video')
+  const musicButtons = document.querySelectorAll('.container__sound-picker button')
+  const timeSelect = document.querySelectorAll('.container__time-select button')
   const timeDisplay = document.querySelector('.time-display')
   const outlineLengthOfPlay = circleButton.getTotalLength()
 
-  let songDuration = 600
   circleButton.style.strokeDasharray = outlineLengthOfPlay
   circleButton.style.strokeDashoffset = outlineLengthOfPlay
+  let songDuration = 600
 
   const playOrPauseMusic = (song) => {
     if (song.paused) {
@@ -22,9 +23,23 @@ const app = () => {
       movieBackground.pause()
     }
   }
+
   play.addEventListener('click',
     () => { playOrPauseMusic(song) }
   )
+
+  musicButtons.forEach(musicButton => {
+    musicButton.addEventListener('click', function () {
+      song.src = this.getAttribute('data-sound')
+      playOrPauseMusic(song)
+    })
+  })
+  timeSelect.forEach(button => {
+    button.addEventListener('click', function () {
+      songDuration = this.getAttribute('data-time')
+      timeSelect.textContent = `${Math.floor(songDuration / 60)}:${Math.floor(songDuration % 60)}`
+    })
+  })
 
 
   song.ontimeupdate = () => {
@@ -36,6 +51,13 @@ const app = () => {
     let progressOfMusic = outlineLengthOfPlay - (currentTime / songDuration) * outlineLengthOfPlay
     circleButton.style.strokeDashoffset = progressOfMusic
     timeDisplay.textContent = `${timeInMinutes}:${timeInSeconds}`
+
+    if (currentTime >= songDuration) {
+      song.pause()
+      song.currentTime = 0
+      play.src = './svg/pause.svg'
+      movieBackground.pause()
+    }
   }
 }
 
